@@ -26,10 +26,18 @@ def find_nearest_station(traj, cs_info=None):
     dis = haversine_distances(np.radians(traj), np.radians(cs_info))
     return dis.argmin(axis=1), dis.min(axis=1)
 
-def coord2radian(lat=None, lng=None, lat_first=True):
+def coord2radian_np(lat=None, lng=None, lat_first=True):
     _lat_rad, _lng_rad = np.radians(lat).to_numpy(), np.radians(lng).to_numpy()
     if lat_first:
         _rad = np.concatenate((_lat_rad[:, np.newaxis], _lng_rad[:, np.newaxis]), axis=1)
     else:
         _rad = np.concatenate((_lng_rad[:, np.newaxis], _lat_rad[:, np.newaxis]), axis=1)
+    return _rad
+
+def coord2radian_scalar(lat=None, lng=None, lat_first=True):
+    _lat_rad, _lng_rad = np.radians(lat), np.radians(lng)
+    if lat_first:
+        _rad = np.array([[_lat_rad, _lng_rad]])
+    else:
+        _rad = np.array([[_lng_rad, _lat_rad]])
     return _rad

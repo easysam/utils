@@ -138,6 +138,7 @@ def gcj02_to_wgs84_np(lng, lat):
     mglng = lng + dlng
     return lng * 2 - mglng, lat * 2 - mglat
 
+
 def bd09_to_gcj02_np(bd_lon, bd_lat):
     """
     百度坐标系(BD-09)转火星坐标系(GCJ-02)
@@ -153,3 +154,8 @@ def bd09_to_gcj02_np(bd_lon, bd_lat):
     gg_lng = z * np.cos(theta)
     gg_lat = z * np.sin(theta)
     return gg_lng, gg_lat
+
+
+def bd09_to_wgs84_np(bd_lon, bd_lat):
+    lon, lat = bd09_to_gcj02_np(bd_lon, bd_lat)
+    return gcj02_to_wgs84_np(lon, lat)
